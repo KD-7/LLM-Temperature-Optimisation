@@ -1,0 +1,25 @@
+# pyproject.toml
+# See https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+# for more information about the pyproject.toml file.
+
+[build-system]
+requires = ["setuptools>=60"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tempOptimisation"
+dynamic = ["version"]
+description = """Scripts for modelling anonymisation accuracy and context preservation
+with LLamma LLM based on thetemperature parameter"""
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["machine learning", "python"]
+license = { text = "MIT License" }
+authors = [
+    {name = "KD-7"},
+]
+
+dependencies = [
+    # Bump these versions if we remove support for Python 3.7
+    'scikit-learn>=1.0.2',
+]
