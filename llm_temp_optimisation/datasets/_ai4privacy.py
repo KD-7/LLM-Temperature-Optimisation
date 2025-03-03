@@ -16,21 +16,18 @@ def load_ai4privacy_dataset(path):
         path (str): The path to the AI4Privacy dataset
 
     Returns: A tuple of (masked_text, unmasked_text, token_entity_labels,
-    tokenised_unmasked_text) the first two are one dimensional lists, and the last
-    two are 2-dimensional lists
+    tokenised_unmasked_text)
 
         - "masked_text" (list[str]): A list of texts with personally identifiable
         information (PII) replaced by placeholder tokens.
 
         - "unmasked_text" (list[str]): A list of original texts containing PII.
 
-        - "token_entity_labels" (list[list[str]]): A list of lists, where each inner list
-        contains entity labels corresponding to tokens in the text, identifying
+        - "token_entity_labels" (list[str]): A list containing entity labels
+        corresponding to tokens in the text, identifying
         the type of PII ( e.g., "NAME", "EMAIL").
 
-        - "tokenised_unmasked_text" (list[list[str]]): A list
-        of lists, where each inner list is a tokenised version of an unmasked text,
-        with each token corresponding to a word or subword unit.
+        - "tokenised_unmasked_text" (list[str]): A list of tokenised unmasked text.
     """
 
     # absolute path
