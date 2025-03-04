@@ -120,12 +120,12 @@ for temp in temperature_values:
             print(f"Results saved to {excel_filename}")
         else:
             print(f"Warning: No data was written for temp={temp}, iter={iter_num+1}")
-            
+
 """
 TODO:
-- Add the values one at a time to the excel file
-- Implement precision, recall, and f1
-- Finalise the instruction prompt
+- Implement precision, recall, and F1 calculation
+- Optimize LLM processing for large datasets (40k points)
+- Finalise the prompt
 
 Bugs:
 """
