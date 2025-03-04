@@ -6,7 +6,7 @@ import os
 
 # Constants
 DATA_POINTS = 5  # Change to 40000 for full dataset
-ITERATIONS = 1
+ITERATIONS = 5
 SAVE_DIR = "results"
 
 # Ensure save directory exists
@@ -18,7 +18,7 @@ dataset = load_dataset("ai4privacy/pii-masking-200k", data_files="english_pii_43
 metrics = Metrics()
 
 # Define temperature values
-temperature_values = [0.1]
+temperature_values = [0.2, 0.4, 0.6, 0.8, 1.0]
 
 # Load Llama model and instruction
 model = "llama3"
