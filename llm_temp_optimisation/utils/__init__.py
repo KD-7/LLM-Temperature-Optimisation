@@ -1,3 +1,3 @@
-from ._results import AnonResults
+from ._github_export import export_to_github
 
-__all__ = ['AnonResults']
+__all__ = ['export_to_github']
