@@ -35,8 +35,18 @@ def false_positives(anonymised_text, raw_text):
 
     if len(ground_truth_replacements) < len(llm_replacements):
         return len(llm_replacements) - len(ground_truth_replacements)
-    else:
-        return 0
+    return 0
+    
+def false_negatives(anonymised_text, raw_text):
+    # Extract all anonymized entities from LLM output using regex pattern `[ANYTHING]`
+    llm_replacements = re.findall(r'\[[A-Z_]+\]', anonymised_text)
+
+    # Extract all expected anonymizations from the privacy mask (ground truth)
+    ground_truth_replacements = re.findall(r'\[[A-Z_]+\]', raw_text)
+    
+    if len(ground_truth_replacements) > len(llm_replacements):
+        return len(ground_truth_replacements) - len(llm_replacements)
+    return 0
 
 for data_point in range(10):
     print("Raw text: ", dataset["train"][data_point]["source_text"], "\n")
@@ -45,7 +55,9 @@ for data_point in range(10):
     
     tp = true_positives(anonymised_texts[data_point], dataset["train"][data_point]["privacy_mask"])
     fp = false_positives(anonymised_texts[data_point], dataset["train"][data_point]["target_text"])
+    fn = false_negatives(anonymised_texts[data_point], dataset["train"][data_point]["target_text"])
     
     print("True Positives (TP): ", tp)
     print("False Positives (FP): ", fp)
+    print("False Negatives: (FN): ", fn)
     print("\n")
