@@ -1,11 +1,11 @@
 import pandas as pd
 from datasets import load_dataset
 import ollama
-from rouge_score import rouge_scorer
+from metrics_oop import Metrics
 import os
 
 # Constants
-DATA_POINTS = 10  # Change to 40000 for full dataset
+DATA_POINTS = 5  # Change to 40000 for full dataset
 ITERATIONS = 1
 SAVE_DIR = "results"
 
@@ -15,23 +15,37 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 # Load dataset
 dataset = load_dataset("ai4privacy/pii-masking-200k", data_files="english_pii_43k.jsonl")
 
+metrics = Metrics()
+
 # Define temperature values
 temperature_values = [0.1]
 
 # Load Llama model and instruction
 model = "llama3"
 instruction = (
-    "You are an advanced anonymiser that anonymises text through categorisation. "
-    "You will replace all personally identifiable information (PII) with its category in ALL CAPITAL LETTERS. "
-    "DO NOT paraphrase the text; keep it exactly the same. Only replace the PII with its category.\n\n"
-    "**Example Input:**\n"
-    '"My name is Alice, I live in London, and I am 25 years old."\n\n'
-    "**Example Output:**\n"
-    '"My name is [NAME], I live in [LOCATION], and I am [AGE] years old."'
-)
+    "You are an advanced anonymizer that replaces personally identifiable "
+    "information (PII) with a category label. You will NOT paraphrase or "
+    "change any part of the text except for replacing PII with its category in square brackets. "
 
-# Initialize ROUGE scorer
-scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL'], use_stemmer=True)
+    "Here are some examples:\n"
+
+    "Input: \n"
+    "My name is Alice and I live in London.\n"
+    "Output: \n"
+    "My name is [NAME] and I live in [LOCATION]."
+    "\n"
+    
+    "Input: \n"
+    "The customer's credit card number is 4532-9812-3412-6789.\n"
+    "Output: \n"
+    "The customer's credit card number is [CREDIT_CARD]."
+    "\n"
+
+    "Input: \n"
+    "The professor, Dr. John Smith, will be giving a lecture at Harvard University.\n"
+    "Output: \n"
+    "The professor, [NAME], will be giving a lecture at [ORGANIZATION]."
+)
 
 # Loop through temperature and iterations
 for temp in temperature_values:
@@ -63,6 +77,7 @@ for temp in temperature_values:
         for data_point in range(DATA_POINTS):
             raw_text = dataset["train"][data_point]["source_text"]
             ground_truth = dataset["train"][data_point]["target_text"]
+            privacy_mask = dataset["train"][data_point]["privacy_mask"]
 
             # Call LLAMA model
             stream = ollama.chat(
@@ -80,14 +95,9 @@ for temp in temperature_values:
             for chunk in stream:
                 llm_output += chunk.get('message', {}).get('content', '')
 
-            # Compute ROUGE scores
-            scores = scorer.score(ground_truth, llm_output)
-            rouge_1 = scores['rouge1'].fmeasure
-            rouge_2 = scores['rouge2'].fmeasure
-            rouge_l = scores['rougeL'].fmeasure
-
-            # Placeholder for future precision/recall calculations
-            precision, recall, f1_score = 0, 0, 0
+            # Compute Scores
+            rouge_1, rouge_2, rouge_l = metrics.text_similarity_metrics(llm_output, ground_truth)
+            precision, recall, f1 = metrics.anonymisation_metrics(llm_output, ground_truth, privacy_mask)
 
             # Append data to list
             data_list.append({
@@ -96,7 +106,7 @@ for temp in temperature_values:
                 'Anonymised text': llm_output,
                 'Precision': precision,
                 'Recall': recall,
-                'F1': f1_score,
+                'F1': f1,
                 'ROUGE-1': rouge_1,
                 'ROUGE-2': rouge_2,
                 'ROUGE-L': rouge_l
@@ -123,7 +133,6 @@ for temp in temperature_values:
 
 """
 TODO:
-- Implement precision, recall, and F1 calculation
 - Optimize LLM processing for large datasets (40k points)
 - Finalise the prompt
 
