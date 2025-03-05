@@ -3,6 +3,7 @@ from datasets import load_dataset
 import ollama
 from metrics_oop import Metrics
 import os
+import random
 
 # Constants
 DATA_POINTS = 5  # Change to 40000 for full dataset
@@ -14,6 +15,7 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 
 # Load dataset
 dataset = load_dataset("ai4privacy/pii-masking-200k", data_files="english_pii_43k.jsonl")
+dataset_size = len(dataset["train"])
 
 metrics = Metrics()
 
@@ -74,7 +76,10 @@ for temp in temperature_values:
 
         data_list = []  # Store results for this temperature & iteration
 
-        for data_point in range(DATA_POINTS):
+        # Random sampling
+        total_sample = random.sample(range(dataset_size), DATA_POINTS)
+
+        for data_point in total_sample:
             raw_text = dataset["train"][data_point]["source_text"]
             ground_truth = dataset["train"][data_point]["target_text"]
             privacy_mask = dataset["train"][data_point]["privacy_mask"]
