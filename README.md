@@ -38,7 +38,7 @@ computational overhead. This is important as the use case for this project is to
 anonymisation locally as part of a data donation pipeline, and therefore we cannot make 
 assumptions about the participants' hardware. 
 
-### Deploy LLama3 locaally
+### Deploy LLama3 locally
 1. go to https://ollama.com and choose your OS version for downloading and installing
 
 2. try `ollama --verison` in terminal, if that works, go to next step. If not, you need to manually add Ollama to the PATH Environment Variables. Here is an example for Windows. Press `Win + R` and type `sysdm.cpl`. Go to the **Advanced** tab and click **Environment Variables**. Under **System Variables**, find and select **Path**, then click **Edit**. Click **New**, then add the absolute path of ollama (e.g. C:\Program Files\Ollama\). After these steps, try `ollama --version` again.
