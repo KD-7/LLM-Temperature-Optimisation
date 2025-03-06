@@ -10,6 +10,9 @@ DATA_POINTS = 5  # Change to 40000 for full dataset
 ITERATIONS = 5
 SAVE_DIR = "results"
 
+# Set seed
+random.seed(42)
+
 # Ensure save directory exists
 os.makedirs(SAVE_DIR, exist_ok=True)
 
@@ -17,6 +20,7 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 dataset = load_dataset("ai4privacy/pii-masking-200k", data_files="english_pii_43k.jsonl")
 dataset_size = len(dataset["train"])
 
+# Initialise Metrics
 metrics = Metrics()
 
 # Define temperature values
@@ -58,7 +62,6 @@ for temp in temperature_values:
     for iter_num in range(ITERATIONS):
         # Define filename inside the temperature folder
         excel_filename = os.path.join(temp_dir, f"iter_{iter_num+1}.xlsx")
-        # print("Excel_filename: ", excel_filename)  # Debugging print statement
 
         # Ensure file exists before appending
         if not os.path.exists(excel_filename):
@@ -135,11 +138,3 @@ for temp in temperature_values:
             print(f"Results saved to {excel_filename}")
         else:
             print(f"Warning: No data was written for temp={temp}, iter={iter_num+1}")
-
-"""
-TODO:
-- Optimize LLM processing for large datasets (40k points)
-- Finalise the prompt
-
-Bugs:
-"""
