@@ -1,5 +1,5 @@
 import os
-
+import sys
 
 # For exporting results to GitHub
 AUTH_TOKEN = "YOUR_GITHUB_AUTH_TOKEN"
@@ -13,9 +13,17 @@ SAMPLE_POINTS = 10  # The no. of entries to collect for survey sample
 ITERATIONS = 5
 SAVE_DIR = "results"
 MODEL_NAME = "llama3" #TODO: what about 3.1?? check the params
-PROMPT = "put the prompt here"
+PROMPT = (
+            "You are an advanced anonymizer that replaces personally identifiable "
+            "information (PII) with a category label. You will NOT paraphrase or "
+            "change any part of the text except for replacing PII with its category in square brackets.\n\n"
+
+            "Example:\n"
+            "Input: My name is Alice and I live in London.\n"
+            "Output: My name is [NAME] and I live in [LOCATION]."
+        )
 RANDOM_SEED = 42
-PYTHON_VERSION = "3.10"
+PYTHON_VERSION = sys.version_info
 
 # Ensure save directory exists
 os.makedirs(SAVE_DIR, exist_ok=True)
