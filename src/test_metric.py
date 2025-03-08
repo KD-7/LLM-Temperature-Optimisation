@@ -1,5 +1,5 @@
 from datasets import load_dataset
-from metrics_oop import Metrics
+from TempEval.metrics import Metrics
 
 dataset = load_dataset("ai4privacy/pii-masking-200k", data_files="english_pii_43k.jsonl")
 

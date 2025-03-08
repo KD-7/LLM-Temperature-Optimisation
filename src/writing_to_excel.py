@@ -1,7 +1,7 @@
 import pandas as pd
 from datasets import load_dataset
 import ollama
-from metrics_oop import Metrics
+from TempEval.metrics._metrics import Metrics
 import os
 import random
 

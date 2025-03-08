@@ -1,7 +1,7 @@
 import random
 import pandas as pd
 from datasets import load_dataset
-from metrics_oop import Metrics
+from TempEval.metrics._metrics import Metrics
 from config import DATA_POINTS, ITERATIONS, TEMPERATURE_VALUES
 from TempEval.utils._file_handler import FileHandler
 from LLMModel import LLMModel
@@ -45,7 +45,7 @@ class Experiment:
 
     def run_experiment(self, temperature, iter_num):
         """Runs a single iteration of the experiment for a given temperature."""
-        excel_filename = self.file_handler.get_excel_filename(temperature, iter_num)
+        excel_filename = self.file_handler.get_results_filename(temperature, iter_num)
         self.file_handler.initialize_excel_file(excel_filename)
 
         data_list = []
