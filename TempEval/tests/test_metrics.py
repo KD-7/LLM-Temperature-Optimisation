@@ -1,4 +1,4 @@
-from src.metrics_oop import Metrics
+from TempEval.metrics import Metrics
 
 
 class TestMetrics:
