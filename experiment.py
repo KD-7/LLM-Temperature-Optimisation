@@ -12,10 +12,9 @@ random.seed(RANDOM_SEED)
 dataset = datasets.download_ai4privacy_dataset("english_pii_43k.jsonl", "train")
 source_text, target_text, privacy_mask = datasets.load_ai4privacy_dataset(dataset)
 
-DATA_SET_SIZE = len(dataset)
 
 # Used to collect a random sample of results for survey
-RANDOM_SAMPLE_INDICES = random.sample(range(DATA_SET_SIZE), SAMPLE_POINTS)
+RANDOM_SAMPLE_INDICES = random.sample(range(DATA_POINTS), SAMPLE_POINTS)
 
 # Model configuration
 model = models.LLama(MODEL_NAME, PROMPT)
