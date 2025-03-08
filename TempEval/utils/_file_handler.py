@@ -15,10 +15,14 @@ class FileHandler:
         os.makedirs(temp_dir, exist_ok=True)
         return temp_dir
 
-    def get_excel_filename(self, temperature, iteration):
+    def get_results_filename(self, temperature, iteration):
         """Returns the Excel file path for a given temperature and iteration."""
         temp_dir = self.get_temp_dir(temperature)
         return os.path.join(temp_dir, f"iter_{iteration + 1}.xlsx")
+
+    def get_config_filename(self):
+        """Returns the Excel file path for the configuration settings."""
+        return os.path.join(self.base_dir, "config.xlsx")
 
     def initialize_excel_file(self, filepath):
         """Creates an Excel file with required columns if it doesn't exist."""
@@ -47,3 +51,15 @@ class FileHandler:
             new_data.to_excel(writer, sheet_name="Results", index=False, header=True)
 
         print(f"Results saved to {filepath}")
+
+    def save_config_to_excel(self, filepath, config):
+        """Saves the configuration settings to an Excel file."""
+        df = pd.DataFrame(config.items(), columns=["Parameter", "Value"])
+        df.to_excel(filepath, index=False)
+        print(f"Config saved to {filepath}")
+
+    def save_summary_to_excel(self, filepath, summary):
+        """Saves the summary of the experiment to an Excel file."""
+        df = pd.DataFrame(summary)
+        df.to_excel(filepath, index=False)
+        print(f"Summary saved to {filepath}")

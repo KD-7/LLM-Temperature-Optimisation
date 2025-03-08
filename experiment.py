@@ -27,8 +27,8 @@ for temperature in TEMPERATURE_VALUES:
     iteration_results = []
     for iteration in range(ITERATIONS):
 
-        excel_filepath = file_handler.get_excel_filename(temperature, iteration)
-        file_handler.initialize_excel_file(excel_filepath)
+        excel_results_filepath = file_handler.get_results_filename(temperature, iteration)
+        file_handler.initialize_excel_file(excel_results_filepath)
 
         rogue_1, rogue_2, rogue_l = 0, 0, 0
         precision, recall, f1 = 0, 0, 0
@@ -76,17 +76,18 @@ for temperature in TEMPERATURE_VALUES:
             'ROUGE-2': rogue_2,
             'ROUGE-L': rogue_l
         }
-        # TODO differentiate saving sample results and overall results
-        # TODO export configs to excel
-        # TODO: SAVING SUMMARY OF RUN TO EXCEL
-        file_handler.save_results_to_excel(excel_filepath, sample_responses)
+
+        file_handler.save_results_to_excel(excel_results_filepath, sample_responses)
 
         iteration_results.append(run_results)
 
     utils.export_results_github(iteration_results, temperature, REPO_PATH,
                                 BRANCH_NAME,
                                 AUTH_TOKEN)
-    # TODO: define config
     utils.export_config_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN)
+
+    file_handler.save_summary_to_excel(file_handler.get_results_filename(temperature, "all"),
+                                       iteration_results)
+    file_handler.save_config_to_excel(file_handler.get_config_filename(),config_settings)
 
 print("Experiment completed successfully.")
