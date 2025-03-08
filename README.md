@@ -15,7 +15,15 @@ accuracy and precision but also context preservation with ROGUE.
 git clone https://github.com/KD-7/LLM-Temperature-Optimisation.git
 ```
 
-### Setup the environment
+### Experiment Configuration
+
+The experiment can be configured in the [Configuration file](config.py). To export the 
+results to a GitHub repository, you must specify the repository name, branch and auth token.
+
+### Running the experiment
+
+To run the experiment, set up a virtual environment and install the required dependencies as follows:
+
 
 Example using python3.10:
 ```bash
@@ -25,22 +33,13 @@ source venv/bin/activate
 python experiment.py
 ```
 
-You will need to provide your GitHub token in the experiment file to allow the results 
-to be pushed to your repository.
-
-### Running the experiment
-
-After setting up the environment, to export the LLMs result to a GitHub pages, you must 
-specify in the [Experiment file](Experiment.py) the repository name, branch and auth token.
-
-
 ### Results
 
 There are two methods of exporting the results:
-Are exported to your chosen GitHub repository into the [RESULTS.md](RESULTS.md) file on 
-the chosen branch.
-
-# TODO Write the about excel
+- To your chosen GitHub repository into the [RESULTS.md](RESULTS.md) file on 
+your chosen branch.
+- They are also exported locally as Excel files in the directory specified
+in [config.py](config.py).
 
 ### Why LLama?
 We chose to use LLama as it is a lightweight library that is easy to use and has a low 
