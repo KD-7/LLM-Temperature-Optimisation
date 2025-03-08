@@ -12,7 +12,7 @@ DATA_POINTS = 5  # Change to 40000 for full dataset
 SAMPLE_POINTS = 10  # The no. of entries to collect for survey sample
 ITERATIONS = 5
 SAVE_DIR = "results"
-MODEL_NAME = "llama3" #TODO: what about 3.1?? check the params
+MODEL_NAME = "llama3"
 PROMPT = (
             "You are an advanced anonymizer that replaces personally identifiable "
             "information (PII) with a category label. You will NOT paraphrase or "
