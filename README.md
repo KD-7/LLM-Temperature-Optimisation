@@ -27,10 +27,20 @@ python experiment.py
 
 You will need to provide your GitHub token in the experiment file to allow the results 
 to be pushed to your repository.
+
+### Running the experiment
+
+After setting up the environment, to export the LLMs result to a GitHub pages, you must 
+specify in the [Experiment file](Experiment.py) the repository name, branch and auth token.
+
+
 ### Results
 
+There are two methods of exporting the results:
 Are exported to your chosen GitHub repository into the [RESULTS.md](RESULTS.md) file on 
-the chosen branch
+the chosen branch.
+
+# TODO Write the about excel
 
 ### Why LLama?
 We chose to use LLama as it is a lightweight library that is easy to use and has a low 
@@ -38,10 +48,4 @@ computational overhead. This is important as the use case for this project is to
 anonymisation locally as part of a data donation pipeline, and therefore we cannot make 
 assumptions about the participants' hardware. 
 
-### Deploy LLama3 locally
-1. go to https://ollama.com and choose your OS version for downloading and installing
-
-2. try `ollama --verison` in terminal, if that works, go to next step. If not, you need to manually add Ollama to the PATH Environment Variables. Here is an example for Windows. Press `Win + R` and type `sysdm.cpl`. Go to the **Advanced** tab and click **Environment Variables**. Under **System Variables**, find and select **Path**, then click **Edit**. Click **New**, then add the absolute path of ollama (e.g. C:\Program Files\Ollama\). After these steps, try `ollama --version` again.
-
-3. In terminal, type `ollama pull llama3`. Then llama3 will be installed automatically.
 

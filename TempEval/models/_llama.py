@@ -3,9 +3,8 @@ import ollama
 
 class LLama:
 
-    def __init__(self, model_name: str, temperature: float, prompt: str):
+    def __init__(self, model_name: str, prompt: str):
         self.model_name = model_name
-        self.temperature = temperature
         self.prompt = prompt
         ollama.pull(model_name)
 
@@ -16,10 +15,11 @@ class LLama:
         """
         self.prompt = new_prompt
 
-    def chat(self, data: str):
+    def chat(self, data: str, temperature: float):
         """Get model response to user input
         Args:
             data (str): The user input
+            temperature (float): The temperature setting for the model
         Returns:
             str: The response from the model
         """
@@ -28,4 +28,4 @@ class LLama:
                            messages=[
                                {'role': 'system', 'content': self.prompt},
                                {'role': 'user', 'content': data}],
-                           options={'temperature': self.temperature})
+                           options={'temperature': temperature})
