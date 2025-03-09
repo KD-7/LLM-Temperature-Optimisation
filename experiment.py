@@ -8,6 +8,9 @@ from temp_eval.utils import FileHandler
 # Set random seed for reproducibility
 random.seed(RANDOM_SEED)
 
+# Ensure save directory exists
+os.makedirs(SAVE_DIR, exist_ok=True)
+
 # Dataset configuration
 dataset = datasets.download_ai4privacy_dataset("english_pii_43k.jsonl", "train")
 source_text, target_text, privacy_mask = datasets.load_ai4privacy_dataset(dataset)

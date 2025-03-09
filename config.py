@@ -25,9 +25,6 @@ PROMPT = (
 RANDOM_SEED = 42
 PYTHON_VERSION = sys.version_info
 
-# Ensure save directory exists
-os.makedirs(SAVE_DIR, exist_ok=True)
-
 config_settings = {
     "TEMPERATURE_VALUES": TEMPERATURE_VALUES,
     "DATA_POINTS": DATA_POINTS,
