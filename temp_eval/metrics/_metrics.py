@@ -37,8 +37,8 @@ class Metrics:
         - FN: When the LLM fails to anonymise expected PII.
 
         Args:
-        - anonymised_text (str): The LLM-generated anonymized text.
-        - raw_text (str): The original text before anonymization.
+        - anonymised_text (str): The LLM-generated anonymised text.
+        - target_text (str): The ground truth anonymised text.
 
         Returns:
         - tuple: (False Positives (FP), False Negatives (FN))
@@ -47,7 +47,7 @@ class Metrics:
         # Extract all anonymized entities from LLM output using regex pattern `[ANYTHING]`
         llm_replacements = re.findall(r'\[[A-Z_]+\]', anonymised_text)
 
-        # Extract all expected anonymizations from the privacy mask (ground truth)
+        # Extract all expected anonymizations from the ground truth
         ground_truth_replacements = re.findall(r'\[[A-Z_]+\]', target_text)
         
         # Compute FP and FN
