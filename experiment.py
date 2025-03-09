@@ -42,7 +42,8 @@ for temperature in TEMPERATURE_VALUES:
 
         for data_point in range(DATA_POINTS):
 
-            model_response = utils.sanitise_response(model.chat(source_text[data_point],
+            # Generate is used for one-off responses
+            model_response = utils.sanitise_response(model.generate(source_text[data_point],
                                                                 temperature))
 
             r1, r2, rl = utils.text_similarity_metrics(model_response[data_point],

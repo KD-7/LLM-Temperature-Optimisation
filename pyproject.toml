@@ -27,6 +27,7 @@ dependencies = [
     'pygithub == 2.6.1',
     'datasets >= 3.3.2',
     'tqdm >= 4.67.1',
+    'openpyxl >= 3.1.5',
     # Cant install in pyproject.toml, see GitHub issue: https://github.com/google-research/google-research/issues/2672
     # Instead see README for workaround
     #'rogue-score == 0.1.2'

@@ -24,8 +24,7 @@ class LLama:
             str: The response from the model
         """
         # No need to stream response for our use case
-        return ollama.chat(model=self.model_name,
-                           messages=[
-                               {'role': 'system', 'content': self.prompt},
-                               {'role': 'user', 'content': data}],
-                           options={'temperature': temperature})
+        return ollama.generate(model=self.model_name,
+                               prompt=self.prompt,
+                               context=data,
+                               options={'temperature': temperature}).response
