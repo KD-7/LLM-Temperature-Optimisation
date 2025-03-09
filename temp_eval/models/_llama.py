@@ -25,6 +25,6 @@ class LLama:
         """
         # No need to stream response for our use case
         return ollama.generate(model=self.model_name,
-                               prompt=self.prompt,
-                               context=data,
+                               system=self.prompt,
+                               prompt=data,
                                options={'temperature': temperature}).response
