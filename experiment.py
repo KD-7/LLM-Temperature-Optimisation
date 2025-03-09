@@ -20,6 +20,9 @@ source_text, target_text, privacy_mask = datasets.load_ai4privacy_dataset(datase
 RANDOM_SAMPLE_INDICES = random.sample(range(DATA_POINTS), SAMPLE_POINTS)
 
 # Model configuration
+
+# Set the environment variable for Ollama
+os.environ["OLLAMA_HOST"] = "0.0.0.0:11434"
 model = models.LLama(MODEL_NAME, PROMPT)
 
 file_handler = FileHandler(SAVE_DIR)
