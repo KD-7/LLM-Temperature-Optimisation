@@ -15,7 +15,7 @@ class LLama:
         """
         self.prompt = new_prompt
 
-    def chat(self, data: str, temperature: float):
+    def generate(self, data: str, temperature: float):
         """Get model response to user input
         Args:
             data (str): The user input
