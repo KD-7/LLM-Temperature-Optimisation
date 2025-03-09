@@ -2,8 +2,8 @@
 
 import random
 from config import *
-from tempeval import datasets, models, utils
-from tempeval.utils import FileHandler
+from temp_eval import datasets, models, utils
+from temp_eval.utils import FileHandler
 
 # Set random seed for reproducibility
 random.seed(RANDOM_SEED)

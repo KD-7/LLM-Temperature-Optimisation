@@ -30,6 +30,7 @@ Example using python3.10:
 pip install virtualenv
 virtualenv -p python3.10 venv
 source venv/bin/activate
+pip install .
 python experiment.py
 ```
 

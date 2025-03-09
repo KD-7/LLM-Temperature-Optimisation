@@ -7,7 +7,7 @@ requires = ["setuptools>=60"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "llm_temp_optimisation"
+name = "temp_eval"
 dynamic = ["version"]
 description = """Scripts for modelling anonymisation accuracy and context preservation
 with LLamma LLM based on the temperature parameter"""
@@ -27,8 +27,9 @@ dependencies = [
     'pygithub == 2.6.1',
     'datasets >= 3.3.2',
     'tqdm >= 4.67.1',
-    'rogue-score == 0.1.2'
+    # Work around see GitHub issue: https://github.com/google-research/google-research/issues/2672
+    'rogue-score @https://files.pythonhosted.org/packages/e2/c5/9136736c37022a6ad27fea38f3111eb8f02fe75d067f9a985cc358653102/rouge_score-0.1.2.tar.gz'
 ]
 [tool.setuptools.packages.find]
-include = ["tempeval*"]
-exclude = ["tempeval.tests*"]  # exclude tests from build artifacts
+include = ["temp_eval*"]
+exclude = ["temp_eval.tests*"]  # exclude tests from build artifacts
