@@ -29,7 +29,7 @@ class Metrics:
                 
         return tp
     
-    def false_positives_negatives(self, anonymised_text, raw_text):
+    def false_positives_negatives(self, anonymised_text, target_text):
         """
         Computes False Positives (FP) and False Negatives (FN).
         
@@ -48,7 +48,7 @@ class Metrics:
         llm_replacements = re.findall(r'\[[A-Z_]+\]', anonymised_text)
 
         # Extract all expected anonymizations from the privacy mask (ground truth)
-        ground_truth_replacements = re.findall(r'\[[A-Z_]+\]', raw_text)
+        ground_truth_replacements = re.findall(r'\[[A-Z_]+\]', target_text)
         
         # Compute FP and FN
         fp = max(0, len(llm_replacements) - len(ground_truth_replacements))  # Extra anonymisations
@@ -90,9 +90,16 @@ class Metrics:
         """
         tp = self.true_positives(anonymised_text, privacy_mask)
         fp, fn = self.false_positives_negatives(anonymised_text, target_text)
-        
-        precision = tp / (tp + fp)
-        recall = tp / (tp + fn)
+
+        if tp + fp == 0:
+            precision = 0
+        else:
+            precision = tp / (tp + fp)
+
+        if tp + fn == 0:
+            recall = 0
+        else:
+            recall = tp / (tp + fn)
         f1 = 2 * ((precision * recall)/(precision + recall))
         
         return (precision, recall, f1)
