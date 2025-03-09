@@ -2,7 +2,7 @@ import os
 import sys
 
 # For exporting results to GitHub
-AUTH_TOKEN = "YOUR_GITHUB_AUTH_TOKEN"
+AUTH_TOKEN = "" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
 REPO_PATH = "KD-7/LLM-Temperature-Optimisation"
 BRANCH_NAME = "github_pages"
 

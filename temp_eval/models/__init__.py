@@ -1,5 +1,5 @@
 
-from ._llama import LLamma3_1
+from ._llama import LLama
 
-__all__ = ["LLamma3_1"]
+__all__ = ["LLama"]
 

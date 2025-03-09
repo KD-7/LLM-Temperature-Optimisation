@@ -80,10 +80,11 @@ for temperature in TEMPERATURE_VALUES:
 
         iteration_results.append(run_results)
 
-    utils.export_results_github(iteration_results, temperature, REPO_PATH,
-                                BRANCH_NAME,
-                                AUTH_TOKEN)
-    utils.export_config_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN)
+    if (AUTH_TOKEN != ""):
+        utils.export_results_github(iteration_results, temperature, REPO_PATH,
+                                    BRANCH_NAME,
+                                    AUTH_TOKEN)
+        utils.export_config_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN)
 
     file_handler.save_summary_to_excel(file_handler.get_results_filename(temperature, "all"),
                                        iteration_results)
