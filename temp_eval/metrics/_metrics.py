@@ -100,7 +100,11 @@ class Metrics:
             recall = 0
         else:
             recall = tp / (tp + fn)
-        f1 = 2 * ((precision * recall)/(precision + recall))
+
+        if precision + recall == 0:
+            f1 = 0
+        else:
+            f1 = 2 * ((precision * recall) / (precision + recall))
         
         return (precision, recall, f1)
     
