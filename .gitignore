@@ -83,3 +83,6 @@ fabric.properties
 .pytest_cache
 
 __pycache__/
+
+# Dont include build directories
+temp_eval.*

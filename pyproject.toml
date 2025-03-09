@@ -27,8 +27,9 @@ dependencies = [
     'pygithub == 2.6.1',
     'datasets >= 3.3.2',
     'tqdm >= 4.67.1',
-    # Work around see GitHub issue: https://github.com/google-research/google-research/issues/2672
-    'rogue-score @https://files.pythonhosted.org/packages/e2/c5/9136736c37022a6ad27fea38f3111eb8f02fe75d067f9a985cc358653102/rouge_score-0.1.2.tar.gz'
+    # Cant install in pyproject.toml, see GitHub issue: https://github.com/google-research/google-research/issues/2672
+    # Instead see README for workaround
+    #'rogue-score == 0.1.2'
 ]
 [tool.setuptools.packages.find]
 include = ["temp_eval*"]
