@@ -1,5 +1,6 @@
 # This script runs an experiment using the LLama model on the AI4Privacy dataset.
 
+import os
 import random
 from config import *
 from temp_eval import datasets, models, utils
@@ -88,17 +89,19 @@ for temperature in TEMPERATURE_VALUES:
 config_copy = config_settings.copy()
 config_copy["TEMPERATURE_VALUES"] = str(TEMPERATURE_VALUES)
 
+# Save the summary and configuration settings to Excel, these will OVERWRITE existing files!
+file_handler.save_to_excel(file_handler.get_summary_filename(), summary)
+file_handler.save_to_excel(file_handler.get_config_filename(), config_copy.items(),
+                           column_names=["Key","Value"])
+
 if AUTH_TOKEN != "":
     utils.export_to_github(summary, REPO_PATH,BRANCH_NAME,AUTH_TOKEN,
                            header="## Experiment Summary",commit_message="Export Summary")
+    # Make the new lines show on Markdown
     config_copy["PROMPT"] = config_copy["PROMPT"].replace("\n", "<br>")
     key_value_pairs = [{'Key': k, 'Value': v} for k, v in config_copy.items()]
     utils.export_to_github(key_value_pairs, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
                            header="### Config Settings", commit_message="Export Config")
 
-# Save the summary and configuration settings to Excel, these will OVERWRITE existing files!
-file_handler.save_to_excel(file_handler.get_summary_filename(), summary)
-file_handler.save_to_excel(file_handler.get_config_filename(), config_copy.items(),
-                           column_names=["Key","Value"])
 
 print("Experiment completed successfully.")
