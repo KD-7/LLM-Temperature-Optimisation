@@ -1,9 +1,9 @@
 import random
 import pandas as pd
 from datasets import load_dataset
-from TempEval.metrics._metrics import Metrics
+from temp_eval.metrics._metrics import Metrics
 from config import DATA_POINTS, ITERATIONS, TEMPERATURE_VALUES
-from TempEval.utils._file_handler import FileHandler
+from temp_eval.utils._file_handler import FileHandler
 from LLMModel import LLMModel
 
 class Experiment:
