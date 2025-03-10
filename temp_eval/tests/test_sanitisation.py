@@ -1,4 +1,4 @@
-from utils._output_validation import sanitise_response
+from temp_eval.utils import sanitise_response
 
 
 class TestSanitisation:
