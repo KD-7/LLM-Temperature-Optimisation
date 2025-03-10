@@ -32,7 +32,7 @@ class FileHandler:
         """Saves data to an Excel file.
         Args:
             "filepath" (str): The path to the Excel file.
-            "new_data" (list of lists): The data to be saved.
+            "new_data" (list of dicts): The data to be saved.
             "column_names" optional(list): The column names for the Excel file.
         """
         df = pd.DataFrame(new_data,columns=column_names)

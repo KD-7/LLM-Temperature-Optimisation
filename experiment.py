@@ -90,12 +90,14 @@ if AUTH_TOKEN != "":
     utils.export_to_github(summary, REPO_PATH,BRANCH_NAME,AUTH_TOKEN,
                            header="## Experiment Summary",commit_message="Export Summary")
 
-    utils.export_to_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
+    config_settings["PROMPT"] = config_settings["PROMPT"].replace("\n", "<br>")
+    key_value_pairs = [{'Key': k, 'Value': v} for k, v in config_settings.items()]
+    utils.export_to_github(key_value_pairs, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
                            header="### Config Settings", commit_message="Export Config")
 
 # Save the summary and configuration settings to Excel, these will OVERWRITE existing files!
-file_handler.save_to_excel(file_handler.get_summary_filename(),summary)
+file_handler.save_to_excel(file_handler.get_summary_filename(), summary)
 file_handler.save_to_excel(file_handler.get_config_filename(), config_settings.items(),
-                           column_names=["Parameter", "Value"])
+                           column_names=["Key","Value"])
 
 print("Experiment completed successfully.")

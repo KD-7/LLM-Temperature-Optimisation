@@ -1,7 +1,6 @@
 import pandas as pd
 from github import Auth, Github
 
-
 def _get_repo(auth_token, repo_path):
     auth = Auth.Token(auth_token)
     return Github(auth=auth).get_repo(repo_path)
@@ -31,7 +30,7 @@ def export_to_github(data, repo_path, branch_name, auth_token=None, header=None,
     old_contents = repo.get_contents("RESULTS.md", ref=branch_name)
 
     new_contents = (old_contents.decoded_content.decode() + "\n" + header + "\n" +
-                    df.to_markdown(index=False))
+                    df.to_markdown(index=False) + "\n").encode()
     repo.update_file(old_contents.path, commit_message, new_contents,
                      branch=branch_name, sha=old_contents.sha)
 
