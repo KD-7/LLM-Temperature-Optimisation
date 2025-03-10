@@ -1,4 +1,4 @@
-from TempEval.metrics import Metrics
+from temp_eval.metrics import Metrics
 
 class TestMetrics:
     def test01_true_positives(self):
