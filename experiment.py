@@ -35,7 +35,7 @@ for temperature in TEMPERATURE_VALUES:
     precision, recall, f1 = 0, 0, 0
     for iteration in range(ITERATIONS):
 
-        excel_iter_filepath = file_handler.get_iteration_filename(temperature, iteration)
+        excel_iter_filepath = file_handler.get_iteration_filename(temperature, iteration + 1)
 
         sample_responses = []
 
