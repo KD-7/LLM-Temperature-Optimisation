@@ -37,6 +37,11 @@ version = {attr = "temp_eval.__version__"}
 [project.optional-dependencies]
 tests = ["pytest"]
 
+# Pytest config
+# See: https://docs.pytest.org/en/stable/customize.html
+[tool.pytest.ini_options]
+addopts = "--verbose --doctest-modules"
+testpaths = ["temp_eval"]
 
 [tool.setuptools.packages.find]
 include = ["temp_eval*"]

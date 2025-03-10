@@ -1,4 +1,4 @@
-from TempEval.metrics import Metrics
+from temp_eval.metrics import Metrics
 
 # See README for how to run the tests
 class TestMetrics:
