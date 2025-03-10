@@ -77,4 +77,6 @@ def sanitise_response(source_text, response: str) -> str:
         if front_correct and back_correct:
             break
 
-    return str(response_tokens[front_slice:back_slice])
+    # Return the cleaned response by joining tokens with white space (doesnt add new lines,
+    # but the dataset is mainly formed of blocks of text)
+    return " ".join(response_tokens[front_slice:back_slice])
