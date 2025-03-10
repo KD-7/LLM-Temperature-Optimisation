@@ -26,6 +26,8 @@ It is recommended to create a virtual environment to run the experiment. This wi
 ensure that the dependencies do not interfere with other projects you may be working on.
 These conflicts may result in incorrect results or errors.
 
+*If you have already set one up, then make sure to activate it before running the experiment or tests!*
+
 Example shown for python3.10:
 ```bash
 pip install virtualenv
@@ -71,7 +73,7 @@ Then run the following commands:
 
 ```bash
 pip install .[test]
-#If coming across module not found error, then add the -m before temp_eval
+#If coming across module not found errors, then run python -m pytest temp_eval
 pytest temp_eval
 ```
 
