@@ -20,7 +20,12 @@ git clone https://github.com/KD-7/LLM-Temperature-Optimisation.git
 The experiment can be configured in the [Configuration file](config.py). To export the 
 results to a GitHub repository, you must specify the repository name, branch and auth token.
 
-# Creating a virtual environment
+#### Ollama Installation
+
+To install Ollama, visit the [Ollama website](https://ollama.com/download), select your Operating 
+system and follow the instructions.
+
+#### Creating a virtual environment
 
 It is recommended to create a virtual environment to run the experiment. This will 
 ensure that the dependencies do not interfere with other projects you may be working on.
@@ -35,11 +40,11 @@ virtualenv -p python3.10 venv
 source venv/bin/activate
 ```
 
-### Running the experiment
+## Running the experiment
 
 To run the experiment,
-first [Create a virtual environment](#creating-a-virtual-environment)
-and then run the following commands:
+First ensure that you have followed the steps above to [create and activate virtual environment](#creating-a-virtual-environment).
+Then run the following commands:
 
 ```bash 
 # This is a workaround to install rogue-score package due to https://github.com/google-research/google-research/issues/2672
@@ -58,13 +63,13 @@ in [config.py](config.py).
 
 *PLEASE NOTE: The previous experiment results will be overwritten in the Excel files!*
 
-### Why LLama?
+## Why LLama?
 We chose to use LLama as it is a lightweight library that is easy to use and has a low 
 computational overhead. This is important as the use case for this project is to conduct
 anonymisation locally as part of a data donation pipeline, and therefore we cannot make 
 assumptions about the participants' hardware. 
 
-### Running the tests
+## Running the tests
 
 To run the tests, make sure you are running in a virtual instance otherwise 
 you may come across errors. See [Creating a virtual environment](#creating-a-virtual-environment).
