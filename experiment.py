@@ -29,15 +29,14 @@ model = models.LLama(MODEL_NAME, PROMPT)
 metrics = Metrics()
 file_handler = FileHandler(SAVE_DIR)
 #TODO: Fix the names i got confused
+summary = []
 for temperature in TEMPERATURE_VALUES:
 
-    iteration_results = []
+    rogue_1, rogue_2, rogue_l = 0, 0, 0
+    precision, recall, f1 = 0, 0, 0
     for iteration in range(ITERATIONS):
 
         excel_iter_filepath = file_handler.get_iteration_filename(temperature, iteration)
-
-        rogue_1, rogue_2, rogue_l = 0, 0, 0
-        precision, recall, f1 = 0, 0, 0
 
         sample_responses = []
 
@@ -69,35 +68,37 @@ for temperature in TEMPERATURE_VALUES:
                     'ROUGE-L': rl
                 })
 
-        # Average over all data points
-        rogue_1 /= DATA_POINTS; rogue_2 /= DATA_POINTS; rogue_l /= DATA_POINTS
-        precision /= DATA_POINTS; recall /= DATA_POINTS; f1 /= DATA_POINTS
-
-        # The results for this temperature parameter averaged over all iterations
-        run_results = {
-            'Iteration Count': iteration,
-            'Temperature': temperature,
-            'Precision': precision,
-            'Recall': recall,
-            'F1': f1,
-            'ROUGE-1': rogue_1,
-            'ROUGE-2': rogue_2,
-            'ROUGE-L': rogue_l
-        }
-
         file_handler.save_to_excel(excel_iter_filepath, sample_responses)
 
-        iteration_results.append(run_results)
+    # Average over all data points
+    rogue_1 /= DATA_POINTS; rogue_2 /= DATA_POINTS; rogue_l /= DATA_POINTS
+    precision /= DATA_POINTS; recall /= DATA_POINTS; f1 /= DATA_POINTS
 
-    if (AUTH_TOKEN != ""):
-        utils.export_results_github(iteration_results, temperature, REPO_PATH,
-                                    BRANCH_NAME,
-                                    AUTH_TOKEN)
-        utils.export_config_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN)
+    # The results for this temperature parameter averaged over all iterations
+    run_results = {
+        'Iteration Count': ITERATIONS,
+        'Temperature': temperature,
+        'Precision': precision,
+        'Recall': recall,
+        'F1': f1,
+        'ROUGE-1': rogue_1,
+        'ROUGE-2': rogue_2,
+        'ROUGE-L': rogue_l
+    }
 
-    file_handler.save_to_excel(file_handler.get_iteration_filename(temperature, "all"),
-                                       iteration_results)
-    file_handler.save_to_excel(file_handler.get_config_filename(),config_settings.items(),
-                               column_names=["Parameter", "Value"])
+    summary.append(run_results)
+
+
+if AUTH_TOKEN != "":
+    utils.export_to_github(summary, REPO_PATH,BRANCH_NAME,AUTH_TOKEN,
+                           header="## Experiment Summary",commit_message="Export Summary")
+
+    utils.export_to_github(config_settings, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
+                           header="### Config Settings", commit_message="Export Config")
+
+# Save the summary and configuration settings to Excel, these will OVERWRITE existing files!
+file_handler.save_to_excel(file_handler.get_summary_filename(),summary)
+file_handler.save_to_excel(file_handler.get_config_filename(), config_settings.items(),
+                           column_names=["Parameter", "Value"])
 
 print("Experiment completed successfully.")
