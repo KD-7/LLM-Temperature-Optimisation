@@ -42,14 +42,16 @@ for temperature in TEMPERATURE_VALUES:
         for data_point in range(DATA_POINTS):
 
             # Generate is used for one-off responses
-            model_response = utils.sanitise_response(source_text[data_point],model.generate(source_text[data_point],
-                                                                temperature))
+            model_response = model.generate(source_text[data_point],temperature)
 
-            r1, r2, rl = metrics.text_similarity_metrics(model_response[data_point],
+            cleaned_model_response = utils.sanitise_response(source_text[data_point],
+                                                             model_response)
+
+            r1, r2, rl = metrics.text_similarity_metrics(cleaned_model_response[data_point],
                                                        target_text[data_point])
             rogue_1 += r1; rogue_2 += r2; rogue_l += rl
 
-            p, r, f = metrics.anonymisation_metrics(model_response[data_point],
+            p, r, f = metrics.anonymisation_metrics(cleaned_model_response[data_point],
                                                   target_text[data_point],
                                                   privacy_mask[data_point])
             precision += p; recall += r; f1 += f
@@ -58,7 +60,8 @@ for temperature in TEMPERATURE_VALUES:
                 sample_responses.append({
                     'Source text': source_text[data_point],
                     'Ground truth': target_text[data_point],
-                    'Model response': model_response,
+                    'Original Model Response': model_response, # Pre-cleaning
+                    'Cleaned Model response': cleaned_model_response,
                     'Precision': p,
                     'Recall': r,
                     'F1': f,
