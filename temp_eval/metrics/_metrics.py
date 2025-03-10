@@ -132,3 +132,11 @@ class Metrics:
         rouge_l = scores['rougeL'].fmeasure
         
         return (rouge_1, rouge_2, rouge_l)
+    
+"""
+if __name__ == '__main__':
+    anonymised_text = "A student's assessment was found on device bearing [IMEI] : 06-184755-866851-3. The document falls under the various topics discussed in our [COURSE] curriculum. Can you please collect it?"
+    ground_truth = "A student's assessment was found on device bearing IMEI: [PHONEIMEI]. The document falls under the various topics discussed in our [JOBAREA] curriculum. Can you please collect it?"
+    m = Metrics()
+    print(m.text_similarity_metrics(anonymised_text, ground_truth))
+"""
