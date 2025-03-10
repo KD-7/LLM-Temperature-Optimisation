@@ -89,9 +89,9 @@ for temperature in TEMPERATURE_VALUES:
 if AUTH_TOKEN != "":
     utils.export_to_github(summary, REPO_PATH,BRANCH_NAME,AUTH_TOKEN,
                            header="## Experiment Summary",commit_message="Export Summary")
-
-    config_settings["PROMPT"] = config_settings["PROMPT"].replace("\n", "<br>")
-    key_value_pairs = [{'Key': k, 'Value': v} for k, v in config_settings.items()]
+    config_copy = config_settings.copy()
+    config_copy["PROMPT"] = config_copy["PROMPT"].replace("\n", "<br>")
+    key_value_pairs = [{'Key': k, 'Value': v} for k, v in config_copy.items()]
     utils.export_to_github(key_value_pairs, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
                            header="### Config Settings", commit_message="Export Config")
 
