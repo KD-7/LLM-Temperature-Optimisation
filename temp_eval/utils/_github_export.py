@@ -12,7 +12,8 @@ def export_to_github(data, repo_path, branch_name, auth_token=None, header=None,
     """Exports the given data to the RESULTS.md markdown file in the specified GitHub
     repository
     Args:
-        data list(dict): A list of dictionaries containing the results for the experiment.
+        data (list(dict)):
+        A list of dictionaries containing the results for the experiment.
 
         repo_path (str): The path to the GitHub repository in the format "owner/repo".
 

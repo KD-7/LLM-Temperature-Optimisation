@@ -44,10 +44,22 @@ your chosen branch.
 - They are also exported locally as Excel files in the directory specified
 in [config.py](config.py).
 
+*PLEASE NOTE: The previous experiment results will be overwritten in the Excel files!*
+
 ### Why LLama?
 We chose to use LLama as it is a lightweight library that is easy to use and has a low 
 computational overhead. This is important as the use case for this project is to conduct
 anonymisation locally as part of a data donation pipeline, and therefore we cannot make 
 assumptions about the participants' hardware. 
+
+### Running the tests
+
+To run the tests, run the following command:
+
+```bash
+pip install .[test]
+pytest
+```
+
 
 
