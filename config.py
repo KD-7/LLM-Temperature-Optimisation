@@ -9,7 +9,7 @@ BRANCH_NAME = "github_pages"
 # Experiment Configuration
 TEMPERATURE_VALUES = [0.2, 0.4, 0.6, 0.8, 1.0]
 DATA_POINTS = 1  # Change to 40000 for full dataset
-SAMPLE_POINTS = 1  # The no. of entries to collect for survey sample
+SAMPLE_POINTS = 10  # The no. of entries to collect for survey sample
 ITERATIONS = 5
 SAVE_DIR = "results"
 MODEL_NAME = "llama3"
