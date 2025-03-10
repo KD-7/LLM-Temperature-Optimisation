@@ -65,8 +65,10 @@ def sanitise_response(source_text, response: str) -> str:
                 back_slice = response_size - i
                 back_correct = True
 
-            if (last_word_source == last_word_response):
-                if ((word_before_last_source == word_before_last_response) or
+            # We use 'in' not equals to handle the case where LLM adds punctuation
+            # connected to the last word
+            if (last_word_source in last_word_response):
+                if ((word_before_last_source in word_before_last_response) or
                         (word_before_last_response[
                              len(word_before_last_response) - 1] == "]")):
                     back_slice = response_size - i
