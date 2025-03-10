@@ -25,10 +25,11 @@ class FileHandler:
         return os.path.join(self.base_dir, "config.xlsx")
 
     def initialize_excel_file(self, filepath):
+        #TODO: may be duplicate!
         """Creates an Excel file with required columns if it doesn't exist."""
         if not os.path.exists(filepath):
             df = pd.DataFrame(columns=[
-                'Raw text', 'Ground truth', 'Anonymised text',
+                'Source text', 'Ground truth', 'Model Response',
                 'Precision', 'Recall', 'F1',
                 'ROUGE-1', 'ROUGE-2', 'ROUGE-L'
             ])
@@ -45,10 +46,12 @@ class FileHandler:
         existing_data = self.read_existing_data(filepath)
 
         if not existing_data.empty:
-            new_data = pd.concat([existing_data, new_data], ignore_index=True)
+            new_df = pd.concat([existing_data, new_data], ignore_index=True)
+        else:
+            new_df = pd.DataFrame(new_data)
 
         with pd.ExcelWriter(filepath, engine='openpyxl', mode='w') as writer:
-            new_data.to_excel(writer, sheet_name="Results", index=False, header=True)
+            new_df.to_excel(writer, sheet_name="Results", index=False, header=True)
 
         print(f"Results saved to {filepath}")
 

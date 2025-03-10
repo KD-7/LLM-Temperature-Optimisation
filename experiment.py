@@ -3,6 +3,7 @@
 import random
 from config import *
 from temp_eval import datasets, models, utils
+from temp_eval.metrics import Metrics
 from temp_eval.utils import FileHandler
 
 # Set random seed for reproducibility
@@ -25,6 +26,7 @@ RANDOM_SAMPLE_INDICES = random.sample(range(DATA_POINTS), SAMPLE_POINTS)
 os.environ["OLLAMA_HOST"] = "0.0.0.0:11434"
 model = models.LLama(MODEL_NAME, PROMPT)
 
+metrics = Metrics()
 file_handler = FileHandler(SAVE_DIR)
 
 for temperature in TEMPERATURE_VALUES:
@@ -43,14 +45,14 @@ for temperature in TEMPERATURE_VALUES:
         for data_point in range(DATA_POINTS):
 
             # Generate is used for one-off responses
-            model_response = utils.sanitise_response(model.generate(source_text[data_point],
+            model_response = utils.sanitise_response(source_text[data_point],model.generate(source_text[data_point],
                                                                 temperature))
 
-            r1, r2, rl = utils.text_similarity_metrics(model_response[data_point],
+            r1, r2, rl = metrics.text_similarity_metrics(model_response[data_point],
                                                        target_text[data_point])
             rogue_1 += r1; rogue_2 += r2; rogue_l += rl
 
-            p, r, f = utils.anonymisation_metrics(model_response[data_point],
+            p, r, f = metrics.anonymisation_metrics(model_response[data_point],
                                                   target_text[data_point],
                                                   privacy_mask[data_point])
             precision += p; recall += r; f1 += f
