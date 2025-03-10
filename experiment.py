@@ -56,7 +56,7 @@ for temperature in TEMPERATURE_VALUES:
                 sample_responses.append({
                     'Source text': source_text[data_point],
                     'Ground truth': target_text[data_point],
-                    'Model response': model_response,
+                    'Original Model Response': model_response, # Pre-cleaning
                     'Precision': p,
                     'Recall': r,
                     'F1': f,

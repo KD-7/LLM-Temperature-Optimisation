@@ -7,7 +7,7 @@ temperature values. The aim of this work is to assess the impact of temperature 
 quality of the anonymisation process both in terms of metrics such as f1,recall, 
 accuracy and precision but also context preservation with ROGUE.
 
-## Installation
+## Experiment Setup
 
 ### Clone the repository
 
@@ -20,12 +20,12 @@ git clone https://github.com/KD-7/LLM-Temperature-Optimisation.git
 The experiment can be configured in the [Configuration file](config.py). To export the 
 results to a GitHub repository, you must specify the repository name, branch and auth token.
 
-#### Ollama Installation
+### Ollama Installation
 
 To install Ollama, visit the [Ollama website](https://ollama.com/download), select your Operating 
 system and follow the instructions.
 
-#### Creating a virtual environment
+### Creating a virtual environment
 
 It is recommended to create a virtual environment to run the experiment. This will 
 ensure that the dependencies do not interfere with other projects you may be working on.
@@ -40,16 +40,27 @@ virtualenv -p python3.10 venv
 source venv/bin/activate
 ```
 
-## Running the experiment
+### Installing the dependencies
 
-To run the experiment,
-First ensure that you have followed the steps above to [create and activate virtual environment](#creating-a-virtual-environment).
+First, ensure that you have followed the steps above to [create and activate virtual environment](#creating-a-virtual-environment).
 Then run the following commands:
 
 ```bash 
 # This is a workaround to install rogue-score package due to https://github.com/google-research/google-research/issues/2672
 pip install https://files.pythonhosted.org/packages/e2/c5/9136736c37022a6ad27fea38f3111eb8f02fe75d067f9a985cc358653102/rouge_score-0.1.2.tar.gz
 pip install .
+```
+
+## Running the experiment
+
+Open another terminal and start Ollama with:
+```bash
+ollama serve
+```
+Alternatively, you can open the ollama desktop app.
+
+Then in the original terminal, run the following commands in your virtual environment:
+```bash 
 python experiment.py
 ```
 
