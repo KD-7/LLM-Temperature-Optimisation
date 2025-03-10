@@ -28,7 +28,6 @@ model = models.LLama(MODEL_NAME, PROMPT)
 
 metrics = Metrics()
 file_handler = FileHandler(SAVE_DIR)
-#TODO: Fix the names i got confused
 summary = []
 for temperature in TEMPERATURE_VALUES:
 
