@@ -1,7 +1,7 @@
 import sys
 
 # For exporting results to GitHub
-AUTH_TOKEN = "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" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
+AUTH_TOKEN = "" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
 REPO_PATH = "KD-7/LLM-Temperature-Optimisation"
 BRANCH_NAME = "results"
 
