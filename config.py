@@ -1,14 +1,14 @@
 import sys
 
 # For exporting results to GitHub
-AUTH_TOKEN = "" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
+AUTH_TOKEN = "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" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
 REPO_PATH = "KD-7/LLM-Temperature-Optimisation"
 BRANCH_NAME = "results"
 
 # Experiment Configuration
 TEMPERATURE_VALUES = [0.2]
-DATA_POINTS = 1  # Change to 40000 for full dataset
-SAMPLE_POINTS = 1  # The no. of entries to collect for survey sample
+DATA_POINTS = 100  # Change to 40000 for full dataset
+SAMPLE_POINTS = 100  # The no. of entries to collect for survey sample
 ITERATIONS = 1
 SAVE_DIR = "results"
 MODEL_NAME = "llama3"
