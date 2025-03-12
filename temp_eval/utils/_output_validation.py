@@ -1,3 +1,6 @@
+# Optional utility function for sanitising the output of the model.
+# Due to the variability in the LLMs output, it may not accurately remove
+# padding or other extraneous text.
 def sanitise_response(source_text, response: str) -> str:
     """
     Remove any extraneous text from the model response.
