@@ -43,9 +43,9 @@ for temperature in TEMPERATURE_VALUES:
         for data_point in range(DATA_POINTS):
                                                                 
             model_response = model.generate(source_text[data_point], temperature)
-            r1, r2, rl = metrics.text_similarity_metrics(model_response,
+            r1 = metrics.text_similarity_metrics(model_response,
                                                        target_text[data_point])
-            rogue_1 += r1; rogue_2 += r2; rogue_l += rl
+            rogue_1 += r1
 
             p, r, f = metrics.anonymisation_metrics(model_response,
                                                   target_text[data_point],
@@ -60,15 +60,13 @@ for temperature in TEMPERATURE_VALUES:
                     'Precision': p,
                     'Recall': r,
                     'F1': f,
-                    'ROUGE-1': r1,
-                    'ROUGE-2': r2,
-                    'ROUGE-L': rl
+                    'ROUGE-1': r1
                 })
 
         file_handler.save_to_excel(excel_iter_filepath, sample_responses)
 
     # Average over all data points
-    rogue_1 /= DATA_POINTS; rogue_2 /= DATA_POINTS; rogue_l /= DATA_POINTS
+    rogue_1 /= DATA_POINTS
     precision /= DATA_POINTS; recall /= DATA_POINTS; f1 /= DATA_POINTS
 
     # The results for this temperature parameter averaged over all iterations
@@ -78,9 +76,7 @@ for temperature in TEMPERATURE_VALUES:
         'Precision': precision,
         'Recall': recall,
         'F1': f1,
-        'ROUGE-1': rogue_1,
-        'ROUGE-2': rogue_2,
-        'ROUGE-L': rogue_l
+        'ROUGE-1': rogue_1
     }
 
     summary.append(run_results)

@@ -7,15 +7,15 @@ BRANCH_NAME = "results"
 
 # Experiment Configuration
 TEMPERATURE_VALUES = [0.2]
-DATA_POINTS = 100  # Change to 40000 for full dataset
-SAMPLE_POINTS = 100  # The no. of entries to collect for survey sample
+DATA_POINTS = 5  # Change to 40000 for full dataset
+SAMPLE_POINTS = 5  # The no. of entries to collect for survey sample
 ITERATIONS = 1
 SAVE_DIR = "results"
 MODEL_NAME = "llama3"
 PROMPT = (
             "You are an advanced anonymizer that replaces personally identifiable "
-            "information (PII) with a category label. You will NOT paraphrase or "
-            "change any part of the text except for replacing PII with its category in square brackets.\n\n"
+            "information (PII) with a category label. You will replacing PII "
+            "with its category in square brackets.\n\n"
 
             "Example:\n"
             "Input: My name is Alice and I live in London.\n"
