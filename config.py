@@ -6,8 +6,8 @@ REPO_PATH = "KD-7/LLM-Temperature-Optimisation"
 BRANCH_NAME = "results"
 
 # Experiment Configuration
-TEMPERATURE_VALUES = [0.2]
-DATA_POINTS = 5  # Change to 40000 for full dataset
+TEMPERATURE_VALUES = [0.001, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+DATA_POINTS = 5 # Change to 40000 for full dataset
 SAMPLE_POINTS = 5  # The no. of entries to collect for survey sample
 ITERATIONS = 1
 SAVE_DIR = "results"

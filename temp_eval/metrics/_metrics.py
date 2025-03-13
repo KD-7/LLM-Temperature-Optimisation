@@ -128,5 +128,7 @@ class Metrics:
         scores = self.scorer.score(anonymised_text, ground_truth)
         
         rouge_1 = scores['rouge1'].fmeasure
+        rouge_2 = scores['rouge2'].fmeasure
+        rouge_l = scores['rougeL'].fmeasure
         
-        return rouge_1
+        return (rouge_1, rouge_2, rouge_l)
