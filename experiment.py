@@ -32,7 +32,7 @@ file_handler = FileHandler(SAVE_DIR)
 summary = []
 for temperature in TEMPERATURE_VALUES:
 
-    rogue_1, rogue_2, rogue_l = 0, 0, 0
+    rouge_1 = 0
     precision, recall, f1 = 0, 0, 0
     for iteration in range(ITERATIONS):
 
@@ -66,7 +66,7 @@ for temperature in TEMPERATURE_VALUES:
         file_handler.save_to_excel(excel_iter_filepath, sample_responses)
 
     # Average over all data points
-    rogue_1 /= DATA_POINTS
+    rouge_1 /= DATA_POINTS
     precision /= DATA_POINTS; recall /= DATA_POINTS; f1 /= DATA_POINTS
 
     # The results for this temperature parameter averaged over all iterations
@@ -76,7 +76,7 @@ for temperature in TEMPERATURE_VALUES:
         'Precision': precision,
         'Recall': recall,
         'F1': f1,
-        'ROUGE-1': rogue_1
+        'ROUGE-1': rouge_1
     }
 
     summary.append(run_results)
