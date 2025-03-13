@@ -13,10 +13,10 @@ ITERATIONS = 1
 SAVE_DIR = "results"
 MODEL_NAME = "llama3"
 PROMPT = (
-            "You are an advanced anonymizer that replaces personally identifiable "
-            "information (PII) with a category label. You will replacing PII "
-            "with its category in square brackets.\n\n"
-
+            "You are an advanced anonymiser that replaces personally identifiable "
+            "information (PII) with a category label. Your task is to:\n"
+            "1) Replace PII with its category in square brackets\n"
+            "2) Preserve the context and utility of the original input\n"
             "Example:\n"
             "Input: My name is Alice and I live in London.\n"
             "Output: My name is [NAME] and I live in [LOCATION]."
