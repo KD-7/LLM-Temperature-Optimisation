@@ -67,9 +67,10 @@ for temperature in TEMPERATURE_VALUES:
 
         file_handler.save_to_excel(excel_iter_filepath, sample_responses)
 
-    # Average over all data points
-    rogue_1 /= DATA_POINTS; rogue_2 /= DATA_POINTS; rogue_l /= DATA_POINTS
-    precision /= DATA_POINTS; recall /= DATA_POINTS; f1 /= DATA_POINTS
+    total_data_points = DATA_POINTS * ITERATIONS
+    # Average over all data points and iterations
+    rogue_1 /= total_data_points; rogue_2 /= total_data_points; rogue_l /= total_data_points
+    precision /= total_data_points; recall /= total_data_points; f1 /= total_data_points
 
     # The results for this temperature parameter averaged over all iterations
     run_results = {

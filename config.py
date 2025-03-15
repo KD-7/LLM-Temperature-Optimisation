@@ -3,7 +3,7 @@ import sys
 # For exporting results to GitHub
 AUTH_TOKEN = "" # Put YOUR_GITHUB_AUTH_TOKEN in the ""
 REPO_PATH = "KD-7/LLM-Temperature-Optimisation"
-BRANCH_NAME = "results"
+BRANCH_NAME = "main"
 
 # Experiment Configuration
 TEMPERATURE_VALUES = [0.001, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
