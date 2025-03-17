@@ -5,7 +5,7 @@ import random
 from config import *
 from temp_eval import datasets, models, utils
 from temp_eval.metrics import Metrics
-from temp_eval.utils import FileHandler, _visualization
+from temp_eval.utils import FileHandler,draw_anonymisation_metrics, draw_context_metrics
 
 # Set random seed for reproducibility
 random.seed(RANDOM_SEED)
@@ -30,10 +30,11 @@ model = models.LLama(MODEL_NAME, PROMPT)
 metrics = Metrics()
 file_handler = FileHandler(SAVE_DIR)
 summary = []
-f1_scores = []
-rouge_1_scores = []
-rouge_2_scores = []
-rouge_l_scores = []
+
+# Store the scores for each temperature value list of precision, recall, f1
+anon_scores = [[], [], []]
+# Store the scores for each temperature value list of rouge1, rouge2, rougeL
+rogue_scores = [[], [], []]
 
 for temperature in TEMPERATURE_VALUES:
 
@@ -88,12 +89,15 @@ for temperature in TEMPERATURE_VALUES:
         'ROUGE-2': rouge_2,
         'ROUGE-L': rouge_l
     }
-
+    # We are saving average results for each temperature value across all iterations
     summary.append(run_results)
-    f1_scores.append(f1)
-    rouge_1_scores.append(rouge_1)
-    rouge_2_scores.append(rouge_2)
-    rouge_l_scores.append(rouge_l)
+    rogue_scores[0].append(rouge_1)
+    rogue_scores[1].append(rouge_2)
+    rogue_scores[2].append(rouge_l)
+    anon_scores[0].append(precision)
+    anon_scores[1].append(recall)
+    anon_scores[2].append(f1)
+
 
 
 config_copy = config_settings.copy()
@@ -104,10 +108,10 @@ file_handler.save_to_excel(file_handler.get_summary_filename(), summary)
 file_handler.save_to_excel(file_handler.get_config_filename(), config_copy.items(),
                            column_names=["Key","Value"])
 
-# draw the charts and save the charts as html format to ./temp_eval/utils/charts directory
-os.makedirs("./temp_eval/utils/charts", exist_ok=True)
-_visualization.draw_chart_temp_f1(TEMPERATURE_VALUES, f1_scores)
-_visualization.draw_chart_temp_rouge(TEMPERATURE_VALUES, rouge_1_scores, rouge_2_scores, rouge_l_scores)
+# Draw and export charts as html
+os.makedirs("visualisations", exist_ok=True)
+draw_anonymisation_metrics(TEMPERATURE_VALUES, anon_scores)
+draw_context_metrics(TEMPERATURE_VALUES,rogue_scores)
 
 
 if AUTH_TOKEN != "":
