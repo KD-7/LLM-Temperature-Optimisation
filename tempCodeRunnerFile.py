@@ -1,2 +1,0 @@
-                              
-            model_response = model
