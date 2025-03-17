@@ -2,15 +2,15 @@
 from datasets import load_dataset
 
 
-def download_ai4privacy_dataset(file_specifier: None, dataset_specifier: None):
+def download_ai4privacy_dataset(file_specifier=None, dataset_specifier=None):
     """Downloads and creates an instance of the dataset
 
     Args:
         file_specifier: Select specific files within the dataset
-        dataset_specifier: Select a specific variant of the dataset e.g. test(validation)
-         or train
+        dataset_specifier: Select a specific variant of the dataset e.g. test
+        (validation) or train
         """
-    # Download latest version
+    # Download the latest version
     return load_dataset("ai4privacy/pii-masking-200k", data_files=file_specifier,
                         split=dataset_specifier)
 
