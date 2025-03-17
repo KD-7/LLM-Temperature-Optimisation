@@ -5,7 +5,8 @@ import random
 from config import *
 from temp_eval import datasets, models, utils
 from temp_eval.metrics import Metrics
-from temp_eval.utils import FileHandler,draw_anonymisation_metrics, draw_context_metrics
+from temp_eval.utils import (FileHandler,draw_anonymisation_metrics, draw_context_metrics,
+                             export_csv)
 
 # Set random seed for reproducibility
 random.seed(RANDOM_SEED)
@@ -98,15 +99,20 @@ for temperature in TEMPERATURE_VALUES:
     anon_scores[1].append(recall)
     anon_scores[2].append(f1)
 
-
-
+# ==============
+# SAVING RESULTS
+# ==============
 config_copy = config_settings.copy()
 config_copy["TEMPERATURE_VALUES"] = str(TEMPERATURE_VALUES)
 
-# Save the summary and configuration settings to Excel, these will OVERWRITE existing files!
+# Save the summary and configuration settings to Excel: OVERWRITES existing files!
 file_handler.save_to_excel(file_handler.get_summary_filename(), summary)
 file_handler.save_to_excel(file_handler.get_config_filename(), config_copy.items(),
                            column_names=["Key","Value"])
+
+# Save summary metrics to csv files: OVERWRITES existing files!
+export_csv(anon_scores,filename="anon_metrics.csv")
+export_csv(rogue_scores,filename="context_metrics.csv")
 
 # Draw and export charts as html
 os.makedirs("visualisations", exist_ok=True)
