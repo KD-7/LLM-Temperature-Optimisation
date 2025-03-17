@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def draw_anonymisation_metrics(temperature_values, anon_scores,
-                               filename="temp_anon.html"):
+                               filename="temp_anon.html",save_dir="./visualisations/"):
     """
     Exports a line chart (as html) comparing anonymisation metrics against temperature
     value. If file exists with the same name, it will be overwritten.
@@ -12,6 +12,8 @@ def draw_anonymisation_metrics(temperature_values, anon_scores,
     - temperature_values (list): list of temperature values defined in
     config
     - rogue_scores (list(list)): list of metrics precision, recall and f1 scores
+    - filename (str): name of the file for the exported chart
+    - save_dir (str): save directory
     """
     # ORDER OF TEMP VALUES MUST MATCH ORDER OF ANON_SCORES
     df = pd.DataFrame({
@@ -28,10 +30,11 @@ def draw_anonymisation_metrics(temperature_values, anon_scores,
                   title="Anonymisation Metrics vs Temperature",
                   markers=True)  # Add markers at data points
 
-    fig.write_html("./visualisations/" + filename)
+    fig.write_html(save_dir + filename)
 
 
-def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.html"):
+def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.html",
+                         save_dir="./visualisations/"):
     """
     Exports a line chart (as html) comparing temperature value against rogue_scores.
     If file exists with the same name, it will be overwritten.
@@ -41,6 +44,8 @@ def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.
     config
     - rogue_scores (list(list)): list of calculated rouge scores (3 types:
     ROUGE-1, ROUGE-2, ROUGE-L)
+    - filename (str): name of the file for the exported chart
+    - save_dir (str): save directory
     """
     # ORDER OF TEMP VALUES MUST MATCH ORDER OF ROGUE_SCORES
     df = pd.DataFrame({
@@ -57,4 +62,4 @@ def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.
                   title="ROGUE Score vs Temperature",
                   markers=True)  # Add markers at data points
 
-    fig.write_html("./visualisations/" + filename)
+    fig.write_html(save_dir + filename)
