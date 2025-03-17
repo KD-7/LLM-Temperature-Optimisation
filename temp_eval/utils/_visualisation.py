@@ -2,56 +2,59 @@ import plotly.express as px
 import pandas as pd
 
 
-def draw_chart_temp_f1(temperature_values, f1_scores):
+def draw_anonymisation_metrics(temperature_values, anon_scores,
+                               filename="temp_anon.html"):
     """
-        Draw a chart with all temperature values vs corresponding f1 values
+    Exports a line chart (as html) comparing anonymisation metrics against temperature
+    value. If file exists with the same name, it will be overwritten.
 
-        Args:
-        - temperature_values (list): list of temperature values defined in config
-        - f1_scores (list): list of calculated f1 values
-
-        Returns:
-        - no return value, save the chart as html format
+    Args:
+    - temperature_values (list): list of temperature values defined in
+    config
+    - rogue_scores (list(list)): list of metrics precision, recall and f1 scores
     """
-
+    # ORDER OF TEMP VALUES MUST MATCH ORDER OF ANON_SCORES
     df = pd.DataFrame({
-        "Temperature": temperature_values,  # X-axis values
-        "F1": f1_scores  # Y-axis values
+        "Temperature": temperature_values,  # X-axis
+        "Precision": anon_scores[0],  # Y-axis
+        "Recall": anon_scores[1],  # Y-axis
+        "F1": anon_scores[2]  # Y-axis
     })
 
-    fig = px.line(df, x="Temperature", y="F1", title="F1 Scores vs Temperature")
-    fig.write_html("./charts/temp_f1.html")
+    # Convert to long format for Plotly (required for multi-line plots)
+    df_long = df.melt(id_vars="Temperature", var_name="Metric", value_name="Score")
+
+    fig = px.line(df_long, x="Temperature", y="Score", color="Metric",
+                  title="Anonymisation Metrics vs Temperature",
+                  markers=True)  # Add markers at data points
+
+    fig.write_html("./visualisations/" + filename)
 
 
-def draw_chart_temp_rouge(temperature_values, rouge_1_scores, rouge_2_scores, rouge_l_scores):
+def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.html"):
     """
-            Draw a chart with all temperature values vs corresponding 3 types rouge values
+    Exports a line chart (as html) comparing temperature value against rogue_scores.
+    If file exists with the same name, it will be overwritten.
 
-            Args:
-            - temperature_values (list): list of temperature values defined in config
-            - rouge_1_scores (list): list of calculated rouge_1 values
-            - rouge_2_scores (list): list of calculated rouge_2 values
-            - rouge_l_scores (list): list of calculated rouge_l values
-
-            Returns:
-            - no return value, save the chart as html format
-        """
-
-    data = {
-        "Temperature": temperature_values,  # X-axis values
-        "ROUGE-1": rouge_1_scores,  # First line
-        "ROUGE-2": rouge_2_scores,  # Second line
-        "ROUGE-L": rouge_l_scores  # Third line
-    }
-
-    df = pd.DataFrame(data)
+    Args:
+    - temperature_values (list): list of temperature values defined in
+    config
+    - rogue_scores (list(list)): list of calculated rouge scores (3 types:
+    ROUGE-1, ROUGE-2, ROUGE-L)
+    """
+    # ORDER OF TEMP VALUES MUST MATCH ORDER OF ROGUE_SCORES
+    df = pd.DataFrame({
+        "Temperature": temperature_values,  # X-axis
+        "ROUGE-1": rogue_scores[0],  # Y-axis
+        "ROUGE-2": rogue_scores[1],  # Y-axis
+        "ROUGE-L": rogue_scores[2]  # Y-axis
+    })
 
     # Convert to long format for Plotly (required for multi-line plots)
-    df_long = df.melt(id_vars="Temperature", var_name="ROUGE Type", value_name="Rouge Score")
+    df_long = df.melt(id_vars="Temperature", var_name="Metric", value_name="Score")
 
-    fig = px.line(df_long, x="Temperature", y="Rouge Score", color="ROUGE Type",
-                  title="ROUGE Scores vs Temperature",
-                  markers=True,  # Add markers at data points
-                  labels={"Temperature": "Temperature", "Score": "ROUGE Score", "ROUGE Type": "ROUGE Type"})
-    fig.write_html("./charts/temp_rouge.html")
+    fig = px.line(df_long, x="Temperature", y="Score", color="Metric",
+                  title="ROGUE Score vs Temperature",
+                  markers=True)  # Add markers at data points
 
+    fig.write_html("./visualisations/" + filename)
