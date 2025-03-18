@@ -109,7 +109,7 @@ file_handler.save_to_excel(file_handler.get_config_filename(), config_copy.items
                            column_names=["Key", "Value"])
 
 # Save summary metrics to csv files: OVERWRITES existing files!
-export_csv(summary, filename="summary.csv")
+export_csv(summary, "summary.csv", SAVE_DIR)
 
 # Draw and export charts as html
 os.makedirs("visualisations", exist_ok=True)

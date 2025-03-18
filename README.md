@@ -66,11 +66,14 @@ python experiment.py
 
 ### Results
 
-There are two methods of exporting the results:
+There are three methods of exporting the results:
 - To your chosen GitHub repository into the [RESULTS.md](RESULTS.md) file on 
 your chosen branch.
 - They are also exported locally as Excel files in the directory specified
 in [config.py](config.py).
+- As a CSV file in the directory specified in [config.py](config.py).
+
+Any graphs generated can be found in the visualisations' directory.
 
 *PLEASE NOTE: The previous experiment results will be overwritten in the Excel files!*
 

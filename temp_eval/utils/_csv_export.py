@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def export_csv(results, filename, save_dir="results/") -> None:
+def export_csv(results, filename, save_dir) -> None:
     """
     Exports the given results to a CSV file with the specified filename.
 
@@ -11,4 +11,4 @@ def export_csv(results, filename, save_dir="results/") -> None:
     - save_dir (str): save directory
     """
     df = pd.DataFrame(results)
-    df.to_csv(save_dir + filename, index=False)
+    df.to_csv(save_dir + "/" + filename, index=False)
