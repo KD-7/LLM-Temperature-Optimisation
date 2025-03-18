@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 
 
 def export_csv(results, filename, save_dir) -> None:
@@ -11,4 +12,6 @@ def export_csv(results, filename, save_dir) -> None:
     - save_dir (str): save directory
     """
     df = pd.DataFrame(results)
-    df.to_csv(save_dir + "/" + filename, index=False)
+    path = os.path.join(save_dir,filename)
+    df.to_csv(path, index=False)
+    print(f"CSV Summary saved to {path}")

@@ -1,9 +1,10 @@
 import plotly.express as px
 import pandas as pd
+import os
 
 
 def draw_anonymisation_metrics(temperature_values, anon_scores,
-                               filename="temp_anon.html",save_dir="./visualisations/"):
+                               filename="temp_anon.html", save_dir="visualisations"):
     """
     Exports a line chart (as html) comparing anonymisation metrics against temperature
     value. If file exists with the same name, it will be overwritten.
@@ -26,15 +27,29 @@ def draw_anonymisation_metrics(temperature_values, anon_scores,
     # Convert to long format for Plotly (required for multi-line plots)
     df_long = df.melt(id_vars="Temperature", var_name="Metric", value_name="Score")
 
-    fig = px.line(df_long, x="Temperature", y="Score", color="Metric",
+    # Rearrange order with ::-1 for correct line overlaying
+    fig = px.line(df_long[::-1], x="Temperature", y="Score", color="Metric",
                   title="Anonymisation Metrics vs Temperature",
-                  markers=True)  # Add markers at data points
+                  markers=True,  # Add markers at data points
+                  color_discrete_sequence=["navy", "red", "#2ecc71"])
 
-    fig.write_html(save_dir + filename)
+    fig.update_xaxes(tickvals=temperature_values)
+    # Add some buffer to the top of the graph
+    y_buffer = 0.03
+    fig.update_yaxes(range=[0, 1 + y_buffer], tickvals=[0, 0.2, 0.4, 0.6, 0.8, 1.0])
+
+    # Modify widths so multiple lines show if values are identical
+    fig.update_traces(line_width=2.5, selector=dict(name="Precision"))
+    fig.update_traces(line_width=6, selector=dict(name="Recall"))
+    fig.update_traces(line_width=10, selector=dict(name="F1"))
+
+    path = os.path.join(save_dir, filename)
+    fig.write_html(path)
+    print(f"Anonymisation metrics plot saved to {path}")
 
 
 def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.html",
-                         save_dir="./visualisations/"):
+                         save_dir="visualisations"):
     """
     Exports a line chart (as html) comparing temperature value against rogue_scores.
     If file exists with the same name, it will be overwritten.
@@ -58,8 +73,20 @@ def draw_context_metrics(temperature_values, rogue_scores, filename="temp_rouge.
     # Convert to long format for Plotly (required for multi-line plots)
     df_long = df.melt(id_vars="Temperature", var_name="Metric", value_name="Score")
 
-    fig = px.line(df_long, x="Temperature", y="Score", color="Metric",
+    fig = px.line(df_long[::-1], x="Temperature", y="Score", color="Metric",
                   title="ROGUE Score vs Temperature",
-                  markers=True)  # Add markers at data points
+                  markers=True,
+                  color_discrete_sequence=["black", "orange", "#808080"])
 
-    fig.write_html(save_dir + filename)
+    fig.update_xaxes(tickvals=temperature_values)
+    y_buffer = 0.03
+    fig.update_yaxes(range=[0, 1 + y_buffer], tickvals=[0, 0.2, 0.4, 0.6, 0.8, 1.0])
+
+    # Modify widths so multiple lines show if values are identical
+    fig.update_traces(line_width=2.5, selector=dict(name="ROUGE-1"))
+    fig.update_traces(line_width=6, selector=dict(name="ROUGE-2"))
+    fig.update_traces(line_width=10, selector=dict(name="ROUGE-L"))
+
+    path = os.path.join(save_dir, filename)
+    fig.write_html(path)
+    print(f"Context metrics plot saved to {path}")
