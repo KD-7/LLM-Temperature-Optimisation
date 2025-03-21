@@ -27,3 +27,18 @@
 | PROMPT             | You are an advanced anonymiser that replaces personally identifiable information (PII) with a category label. Your task is to:<br>1) Replace PII with its category in square brackets<br>2) Preserve the context and utility of the original input<br>Example:<br>Input: My name is Alice and I live in London.<br>Output: My name is [NAME] and I live in [LOCATION]. |
 | RANDOM_SEED        | 42                                                                                                                                                                                                                                                                                                                                                                     |
 | PYTHON_VERSION     | sys.version_info(major=3, minor=10, micro=12, releaselevel='final', serial=0)                                                                                                                                                                                                                                                                                          |
+
+## Experiment Summary
+|   Iteration Count |   Temperature |   Precision |   Recall |       F1 |   ROUGE-1 |   ROUGE-2 |   ROUGE-L |
+|------------------:|--------------:|------------:|---------:|---------:|----------:|----------:|----------:|
+|                 5 |         0.001 |    0.830011 | 0.791547 | 0.77828  |  0.828458 |  0.768862 |  0.824072 |
+|                 5 |         0.1   |    0.82953  | 0.792894 | 0.778334 |  0.828432 |  0.768596 |  0.823844 |
+|                 5 |         0.2   |    0.827351 | 0.79168  | 0.776162 |  0.827127 |  0.767155 |  0.822583 |
+|                 5 |         0.3   |    0.828902 | 0.791105 | 0.776858 |  0.825389 |  0.764587 |  0.82076  |
+|                 5 |         0.4   |    0.827435 | 0.78737  | 0.77371  |  0.821502 |  0.759777 |  0.816772 |
+|                 5 |         0.5   |    0.829048 | 0.786373 | 0.773376 |  0.816493 |  0.754064 |  0.811698 |
+|                 5 |         0.6   |    0.825214 | 0.785256 | 0.770941 |  0.813377 |  0.750098 |  0.808424 |
+|                 5 |         0.7   |    0.824503 | 0.781119 | 0.767731 |  0.808945 |  0.744613 |  0.803903 |
+|                 5 |         0.8   |    0.824255 | 0.779441 | 0.766298 |  0.803845 |  0.738022 |  0.7985   |
+|                 5 |         0.9   |    0.828102 | 0.778019 | 0.767288 |  0.803399 |  0.736472 |  0.797888 |
+|                 5 |         1     |    0.825781 | 0.774586 | 0.763798 |  0.797459 |  0.729864 |  0.79179  |
