@@ -128,5 +128,55 @@ if AUTH_TOKEN != "":
     key_value_pairs = [{'Key': k, 'Value': v} for k, v in config_copy.items()]
     utils.export_to_github(key_value_pairs, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
                            header="### Config Settings", commit_message="Export Config")
+    
+# ==============
+# FINDING MEDIAN
+# ==============
+summary = []
+
+for temperature in TEMPERATURE_VALUES:
+    temp_dir = os.path.join(SAVE_DIR, f"temperature_{temperature}")
+    iteration_scores = []
+
+    for iteration in range(1, ITERATIONS + 1):
+        iter_file = os.path.join(temp_dir, f"iter_{iteration}.xlsx")
+        if not os.path.isfile(iter_file):
+            print(f"File not found: {iter_file}")
+            continue
+
+        df = pd.read_excel(iter_file)
+
+        # Average metrics across all rows in this iteration file
+        avg_precision = df["Precision"].mean()
+        avg_recall = df["Recall"].mean()
+        avg_f1 = df["F1"].mean()
+        avg_r1 = df["ROUGE-1"].mean()
+        avg_r2 = df["ROUGE-2"].mean()
+        avg_rl = df["ROUGE-L"].mean()
+
+        iteration_scores.append({
+            "Temperature": temperature,
+            "Iteration": iteration,
+            "Precision": avg_precision,
+            "Recall": avg_recall,
+            "F1": avg_f1,
+            "ROUGE-1": avg_r1,
+            "ROUGE-2": avg_r2,
+            "ROUGE-L": avg_rl
+        })
+
+    if not iteration_scores:
+        continue
+
+    # Find median iteration by F1 and ROUGE-L 
+    sorted_iterations = sorted(iteration_scores, key=lambda x: (x["F1"] + x["ROUGE-L"]) / 2)
+    median_idx = len(sorted_iterations) // 2
+    median_iteration = sorted_iterations[median_idx]
+    summary.append(median_iteration)
+
+# Export summary
+summary_df = pd.DataFrame(summary)
+summary_df.to_excel(os.path.join(SAVE_DIR, "median_summary.xlsx"), index=False)
+summary_df.to_csv(os.path.join(SAVE_DIR, "median_summary.csv"), index=False)
 
 print("Experiment completed successfully.")
