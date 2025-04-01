@@ -46,8 +46,6 @@ First, ensure that you have followed the steps above to [create and activate vir
 Then run the following commands:
 
 ```bash 
-# This is a workaround to install rogue-score package due to https://github.com/google-research/google-research/issues/2672
-pip install https://files.pythonhosted.org/packages/e2/c5/9136736c37022a6ad27fea38f3111eb8f02fe75d067f9a985cc358653102/rouge_score-0.1.2.tar.gz
 pip install .
 ```
 
