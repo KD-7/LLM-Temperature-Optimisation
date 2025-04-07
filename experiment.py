@@ -129,9 +129,9 @@ if AUTH_TOKEN != "":
     utils.export_to_github(key_value_pairs, REPO_PATH, BRANCH_NAME, AUTH_TOKEN,
                            header="### Config Settings", commit_message="Export Config")
     
-# ==============
-# FINDING MEDIAN
-# ==============
+# ===========================================
+# FINDING MEDIAN AND SAVING ITERATION RESULTS
+# ===========================================
 summary = []
 
 for temperature in TEMPERATURE_VALUES:
@@ -167,7 +167,7 @@ for temperature in TEMPERATURE_VALUES:
 
     if not iteration_scores:
         continue
-
+    
     # Find median iteration by F1 and ROUGE-L 
     sorted_iterations = sorted(iteration_scores, key=lambda x: (x["F1"] + x["ROUGE-L"]) / 2)
     median_idx = len(sorted_iterations) // 2
@@ -178,5 +178,10 @@ for temperature in TEMPERATURE_VALUES:
 summary_df = pd.DataFrame(summary)
 summary_df.to_excel(os.path.join(SAVE_DIR, "median_summary.xlsx"), index=False)
 summary_df.to_csv(os.path.join(SAVE_DIR, "median_summary.csv"), index=False)
+
+# Save all iteration scores
+summary_df = pd.DataFrame(summary)
+summary_df.to_excel(os.path.join(SAVE_DIR, "iterations_summary.xlsx"), index=False)
+summary_df.to_csv(os.path.join(SAVE_DIR, "iterations_summary.csv"), index=False)
 
 print("Experiment completed successfully.")
