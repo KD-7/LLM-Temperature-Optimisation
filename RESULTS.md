@@ -1,33 +1,5 @@
 # Results
-
-## Experiment Summary
-|   Iteration Count |   Temperature |   Precision |   Recall |       F1 |   ROUGE-1 |   ROUGE-2 |   ROUGE-L |
-|------------------:|--------------:|------------:|---------:|---------:|----------:|----------:|----------:|
-|                 1 |         0.001 |    0.62     | 1        | 0.743333 |  0.694782 |  0.601037 |  0.682436 |
-|                 1 |         0.1   |    0.753333 | 1        | 0.843333 |  0.742171 |  0.634237 |  0.730406 |
-|                 1 |         0.2   |    0.833333 | 0.9      | 0.826667 |  0.714946 |  0.629336 |  0.713793 |
-|                 1 |         0.3   |    0.716667 | 1        | 0.824762 |  0.717817 |  0.641657 |  0.707006 |
-|                 1 |         0.4   |    0.866667 | 0.9      | 0.853333 |  0.735934 |  0.654138 |  0.734334 |
-|                 1 |         0.5   |    0.726667 | 1        | 0.831111 |  0.62124  |  0.536165 |  0.618266 |
-|                 1 |         0.6   |    0.866667 | 0.85     | 0.824762 |  0.688102 |  0.563594 |  0.684243 |
-|                 1 |         0.7   |    1        | 0.853333 | 0.91     |  0.740542 |  0.674364 |  0.740542 |
-|                 1 |         0.8   |    0.766667 | 0.9      | 0.766667 |  0.693204 |  0.57674  |  0.691    |
-|                 1 |         0.9   |    0.8      | 0.893333 | 0.804444 |  0.613582 |  0.509714 |  0.600687 |
-|                 1 |         1     |    0.724    | 0.933333 | 0.73619  |  0.717501 |  0.627934 |  0.713313 |
-
-### Config Settings
-| Key                | Value                                                                                                                                                                                                                                                                                                                                                                  |
-|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| TEMPERATURE_VALUES | [0.001, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]                                                                                                                                                                                                                                                                                                              |
-| DATA_POINTS        | 5                                                                                                                                                                                                                                                                                                                                                                      |
-| SAMPLE_POINTS      | 5                                                                                                                                                                                                                                                                                                                                                                      |
-| ITERATIONS         | 1                                                                                                                                                                                                                                                                                                                                                                      |
-| SAVE_DIR           | results                                                                                                                                                                                                                                                                                                                                                                |
-| MODEL_NAME         | llama3                                                                                                                                                                                                                                                                                                                                                                 |
-| PROMPT             | You are an advanced anonymiser that replaces personally identifiable information (PII) with a category label. Your task is to:<br>1) Replace PII with its category in square brackets<br>2) Preserve the context and utility of the original input<br>Example:<br>Input: My name is Alice and I live in London.<br>Output: My name is [NAME] and I live in [LOCATION]. |
-| RANDOM_SEED        | 42                                                                                                                                                                                                                                                                                                                                                                     |
-| PYTHON_VERSION     | sys.version_info(major=3, minor=10, micro=12, releaselevel='final', serial=0)                                                                                                                                                                                                                                                                                          |
-
+                                                                                                                                                                   
 ## Experiment Summary
 |   Iteration Count |   Temperature |   Precision |   Recall |       F1 |   ROUGE-1 |   ROUGE-2 |   ROUGE-L |
 |------------------:|--------------:|------------:|---------:|---------:|----------:|----------:|----------:|
